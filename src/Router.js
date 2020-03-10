@@ -9,9 +9,13 @@ import Services from './pages/Services';
 import Shops from './pages/Shops';
 import Orders from './pages/Orders';
 
-function Router() {
+//components
+import Navbar from './components/Navbar';
+
+function Router(props) {
     return (
         <BaseRouter history={history}>
+            <Navbar history={history} />
             <Switch>
                 <Route path='/' exact component={Home} />
                 <Route path='/products' component={Products} />
@@ -19,7 +23,8 @@ function Router() {
                 <Route path='/shops' component={Shops} />
                 <Route path='/orders' component={Orders} />
             </Switch>
-        </BaseRouter>)
+        </BaseRouter>
+    )
 }
 
 export default Router;
