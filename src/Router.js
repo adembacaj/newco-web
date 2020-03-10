@@ -7,15 +7,17 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Services from './pages/Services';
 import Shops from './pages/Shops';
+import Orders from './pages/Orders';
 
 function Router() {
     return (
         <BaseRouter history={history}>
             <Switch>
                 <Route path='/' exact component={Home} />
-                <Route path='/products' exact component={Products} />
-                <Route path='/services' exact component={Services} />
-                <Route path='/shops' exact component={Shops} />
+                <Route path='/products' component={Products} />
+                <Route path='/services' component={Services} />
+                <Route path='/shops' component={Shops} />
+                <Route path='/orders' component={Orders} />
             </Switch>
         </BaseRouter>)
 }
