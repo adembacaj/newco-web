@@ -3,9 +3,23 @@ import { connect } from 'react-redux';
 import Router from './Router';
 import axios from 'axios';
 import config from './services/config';
+import { getAllProducts } from './store/actions/products.actions';
+import { getAllServices } from './store/actions/services.actions';
+import { getAllShops } from './store/actions/shops.actions';
+import { getAllAssistants } from './store/actions/assistants.actions';
+import { getAllCustomers } from './store/actions/customers.actions';
+import { getAllOrders } from './store/actions/orders.actions';
 
 function App(props) {
   axios.defaults.baseURL = config.baseURL;
+  useEffect(() => {
+    props.getAllAssistants();
+    props.getAllCustomers();
+    props.getAllOrders();
+    props.getAllProducts();
+    props.getAllServices();
+    props.getAllShops();
+  }, [])
   return (
     <>
       <Router />
@@ -14,6 +28,6 @@ function App(props) {
 }
 
 const mapStateToProps = null;
-const mapDispatchToProps = null
+const mapDispatchToProps = { getAllAssistants, getAllCustomers, getAllOrders, getAllProducts, getAllServices, getAllShops };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

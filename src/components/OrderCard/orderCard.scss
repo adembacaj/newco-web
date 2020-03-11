@@ -1,6 +1,6 @@
 $base-color: #333;
 
-.card-info{
+.order-card{
     display: flex;
     width: 100%;
     padding: 10px 15px;
@@ -22,32 +22,10 @@ $base-color: #333;
             margin-left: 15px;
             display: flex;
             flex-direction: column;
-            &-title{
-                font-size: 20px;
-                margin-bottom: 5px;
-                color: #000;
-            }
-            &-subtitle{
+            div{
                 font-size: 13px;
                 margin-bottom: 5px;
                 color: $base-color;
-            }
-            &-otherprops{
-                display: flex;
-                flex-direction: row;
-            &-container{
-                display: flex;
-                flex-direction: row;
-                margin-right: 10px;
-                &-badge{
-                    height: 20px;
-                    border: 1px solid $base-color;
-                    padding: 2px 5px;
-                    margin-bottom: 5px;
-                    border-radius: 5px;
-                    font-size: 12px;
-                }
-            }
             }
         }
     }
