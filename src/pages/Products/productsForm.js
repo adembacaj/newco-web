@@ -71,9 +71,9 @@ function ProductsForm(props) {
                     className="products-form__input"
                     styles={{ control: () => ({ width: '100%', height: 50, display: 'flex' }) }}
                     isMulti
-                    key="Arsyeja"
-                    placeholder="Selekto arsyen e daljes"
-                    name="departmentSelected"
+                    key="services"
+                    placeholder="Add a Service"
+                    name="services"
                     value={serviceValue}
                     onChange={handleServiceSelect}
                     options={serviceOptions}

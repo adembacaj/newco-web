@@ -1,0 +1,28 @@
+$base-color: #333;
+.shops-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    form{display: flex;flex-direction: column;}
+    &__title{
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 50px;
+    }
+    &__input{
+        width: 1000px;
+        height: 50px;
+        padding-left: 15px;
+        border: 1px solid $base-color;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        outline: none;
+    }
+    button{
+        width: 1000px;
+        height: 50px;
+        background-color: $base-color;
+        color: white
+    }
+}

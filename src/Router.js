@@ -9,6 +9,7 @@ import ProductsForm from './pages/Products/productsForm';
 import Services from './pages/Services';
 import ServicesForm from './pages/Services/servicesForm';
 import Shops from './pages/Shops';
+import ShopsForm from './pages/Shops/shopsForm';
 import Orders from './pages/Orders';
 
 //components
@@ -26,6 +27,8 @@ function Router(props) {
                 <Route path="/services-form/:serviceId" component={ServicesForm} />
                 <Route path='/services-form' component={ServicesForm} />
                 <Route path='/services' component={Services} />
+                <Route path="/shops-form/:shopId" component={ShopsForm} />
+                <Route path='/shops-form' component={ShopsForm} />
                 <Route path='/shops' component={Shops} />
                 <Route path='/orders' component={Orders} />
             </Switch>

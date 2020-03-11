@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import CardInfo from '../../components/CardInfo';
 import AddCard from '../../components/AddCard';
 import './shops.scss';
 import images from '../../assets/images';
+import { getAllShops, deleteShop } from '../../store/actions/shops.actions';
 
 function Shops(props) {
     const [data, setData] = useState([]);
 
     const { shopIcon } = images;
-    const editShop = () => console.log('editProduct');
-    const deleteShop = () => console.log('deleteProduct');
-    const addShop = () => console.log('add new product');
+    const addShop = useCallback(() => { props.history.push('shops-form') }, []);
 
+    const deleteShop = useCallback((id) => {
+        props.deleteShop(id);
+        props.getAllShops()
+    }, []);
+
+    useEffect(() => { props.getAllShops() }, [])
     useEffect(() => { setData(props.shops) }, [props.shops])
     return (
         <div className="shops-wrapper">
@@ -20,11 +25,14 @@ function Shops(props) {
                 return (
                     <CardInfo
                         key={item._id}
+                        item={item}
                         icon={shopIcon}
                         title={item.name}
                         subtitles={[`City: ${item.city}`]}
-                        edit={editShop}
-                        delete={deleteShop} />
+                        editPath='shops-form'
+                        history={props.history}
+                        id={item._id}
+                        deleteItem={deleteShop} />
                 )
             })}
             <AddCard text='Add New Shop' onClick={addShop} />
@@ -33,6 +41,6 @@ function Shops(props) {
 }
 
 const mapStateToProps = ({ shops }) => ({ shops });
-const mapDispatchToProps = null;
+const mapDispatchToProps = { getAllShops, deleteShop };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shops);

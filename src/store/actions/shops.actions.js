@@ -34,9 +34,9 @@ export const createShop = (body) => async (dispatch) => {
     }
 }
 
-export const updateShop = (body) => async (dispatch) => {
+export const updateShop = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/shops', body);
+        const { data } = await axios.put(`/shops/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_SHOP, payload: data.data })
         }
@@ -52,6 +52,7 @@ export const deleteShop = (id) => async (dispatch) => {
             dispatch({ type: DELETE_SHOP })
         }
     } catch (e) {
+        console.log(e.response)
         Promise.reject(e)
     }
 }
