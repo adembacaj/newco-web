@@ -34,9 +34,9 @@ export const createCustomer = (body) => async (dispatch) => {
     }
 }
 
-export const updateCustomer = (body) => async (dispatch) => {
+export const updateCustomer = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/customers', body);
+        const { data } = await axios.put(`/customers/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_CUSTOMER, payload: data.data })
         }

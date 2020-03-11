@@ -14,6 +14,8 @@ import Orders from './pages/Orders';
 import OrdersForm from './pages/Orders/OrdersForm';
 import ShopAssistants from './pages/ShopAssistants';
 import ShopAssistantsForm from './pages/ShopAssistants/shopAssistantsForm';
+import Customers from './pages/Customers';
+import CustomersForm from './pages/Customers/customersForm';
 
 //components
 import Navbar from './components/Navbar';
@@ -39,6 +41,9 @@ function Router(props) {
                 <Route path="/assistants-form/:assistantId" component={ShopAssistantsForm} />
                 <Route path='/assistants-form' component={ShopAssistantsForm} />
                 <Route path='/shop-assistant' component={ShopAssistants} />
+                <Route path="/customers-form/:customerId" component={CustomersForm} />
+                <Route path='/customers-form' component={CustomersForm} />
+                <Route path='/customers' component={Customers} />
             </Switch>
         </BaseRouter>
     )
