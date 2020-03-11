@@ -7,12 +7,6 @@ export default function(state=[], action){
             return payload;
         case GET_PRODUCT:
             return payload;
-        case CREATE_PRODUCT:
-            return payload;
-        case UPDATE_PRODUCT:
-            return payload;
-        case DELETE_PRODUCT:
-            return payload;
         default:
             return state;
     }

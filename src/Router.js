@@ -5,6 +5,7 @@ import history from './history';
 //pages
 import Home from './pages/Home';
 import Products from './pages/Products';
+import ProductsForm from './pages/Products/productsForm';
 import Services from './pages/Services';
 import Shops from './pages/Shops';
 import Orders from './pages/Orders';
@@ -18,6 +19,8 @@ function Router(props) {
             <Navbar history={history} />
             <Switch>
                 <Route path='/' exact component={Home} />
+                <Route path="/products-form/:productId" component={ProductsForm} />
+                <Route path='/products-form' component={ProductsForm} />
                 <Route path='/products' component={Products} />
                 <Route path='/services' component={Services} />
                 <Route path='/shops' component={Shops} />

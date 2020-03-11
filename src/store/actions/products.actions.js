@@ -34,9 +34,9 @@ export const createProduct = (body) => async (dispatch) => {
     }
 }
 
-export const updateProduct = (body) => async (dispatch) => {
+export const updateProduct = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/products', body);
+        const { data } = await axios.put(`/products/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_PRODUCT, payload: data.data })
         }
