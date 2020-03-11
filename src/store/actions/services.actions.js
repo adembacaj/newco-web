@@ -34,9 +34,9 @@ export const createService = (body) => async (dispatch) => {
     }
 }
 
-export const updateService = (body) => async (dispatch) => {
+export const updateService = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/services', body);
+        const { data } = await axios.put(`/services/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_SERVICE, payload: data.data })
         }

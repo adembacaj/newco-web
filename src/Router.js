@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductsForm from './pages/Products/productsForm';
 import Services from './pages/Services';
+import ServicesForm from './pages/Services/servicesForm';
 import Shops from './pages/Shops';
 import Orders from './pages/Orders';
 
@@ -22,6 +23,8 @@ function Router(props) {
                 <Route path="/products-form/:productId" component={ProductsForm} />
                 <Route path='/products-form' component={ProductsForm} />
                 <Route path='/products' component={Products} />
+                <Route path="/services-form/:serviceId" component={ServicesForm} />
+                <Route path='/services-form' component={ServicesForm} />
                 <Route path='/services' component={Services} />
                 <Route path='/shops' component={Shops} />
                 <Route path='/orders' component={Orders} />

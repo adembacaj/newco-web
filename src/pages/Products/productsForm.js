@@ -46,7 +46,7 @@ function ProductsForm(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         let services = [];
-        if (description !== '', validity !== '', state !== '') {
+        if (description !== '' && validity !== '' && state !== '' && serviceValue.length) {
             serviceValue.forEach(service => services.push(service.value))
             const body = { description, validity, state, services }
             if (productId) {
