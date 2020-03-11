@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './orderCard.scss';
 
-function CardInfo(props) {
+function OrderCard(props) {
+    const editItem = useCallback(async() => { await props.history.push(`${props.editPath}/${props.id}`, { item: props.item }) }, []);
+    const deleteItem = useCallback(() => { props.deleteItem(props.id) });
     return (
         <div className="order-card">
             <div className="order-card__left">
@@ -15,11 +17,11 @@ function CardInfo(props) {
                 </div>
             </div>
             <div className="order-card__right">
-                <div onClick={props.edit} className="order-card__right-edit">Edit</div>
-                <div onClick={props.delete} className="order-card__right-delete">Delete</div>
+                <div onClick={editItem} className="order-card__right-edit">Edit</div>
+                <div onClick={deleteItem} className="order-card__right-delete">Delete</div>
             </div>
         </div>
     )
 }
 
-export default CardInfo;
+export default OrderCard;

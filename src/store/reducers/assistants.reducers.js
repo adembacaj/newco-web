@@ -7,12 +7,6 @@ export default function(state=[], action){
             return payload;
         case GET_ASSISTANT:
             return payload;
-        case CREATE_ASSISTANT:
-            return payload;
-        case UPDATE_ASSISTANT:
-            return payload;
-        case DELETE_ASSISTANT:
-            return payload;
         default:
             return state;
     }

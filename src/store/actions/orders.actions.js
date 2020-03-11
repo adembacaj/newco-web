@@ -34,9 +34,9 @@ export const createOrder = (body) => async (dispatch) => {
     }
 }
 
-export const updateOrder = (body) => async (dispatch) => {
+export const updateOrder = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/orders', body);
+        const { data } = await axios.put(`/orders/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_ORDER, payload: data.data })
         }

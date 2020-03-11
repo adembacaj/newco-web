@@ -14,6 +14,7 @@ function Navbar(props) {
                     <li><button name="/products" onClick={onClick}>Products</button></li>
                     <li><button name="/services" onClick={onClick}>Services</button></li>
                     <li><button name="/shops" onClick={onClick}>Shops</button></li>
+                    <li><button name="/shop-assistant" onClick={onClick}>Assistants</button></li>
                     <li><button name="/orders" onClick={onClick}>Orders</button></li>
                 </ul>
             </div>

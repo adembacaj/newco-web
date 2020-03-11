@@ -34,9 +34,9 @@ export const createAssistant = (body) => async (dispatch) => {
     }
 }
 
-export const updateAssistant = (body) => async (dispatch) => {
+export const updateAssistant = (body, id) => async (dispatch) => {
     try {
-        const { data } = await axios.put('/assistants', body);
+        const { data } = await axios.put(`/assistants/${id}`, body);
         if (data.success) {
             dispatch({ type: UPDATE_ASSISTANT, payload: data.data })
         }

@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import OrderCard from '../../components/OrderCard';
 import AddCard from '../../components/AddCard';
 import './orders.scss';
 import images from '../../assets/images';
+import { getAllOrders, deleteOrder } from '../../store/actions/orders.actions';
 
 function Orders(props) {
     const [data, setData] = useState([])
     const { orderIcon } = images;
-    const editOrder = () => console.log('editProduct');
-    const deleteOrder = () => console.log('deleteProduct');
-    const addOrder = () => console.log('add new product')
+
+    const deleteOrder = useCallback(async(id) => { 
+        await props.deleteOrder(id);
+        await props.getAllOrders()
+     }, [])
+    const addOrder = useCallback(() => { props.history.push('orders-form') }, [])
 
     useEffect(() => { setData(props.orders) }, [props.orders])
+    useEffect(() => { props.getAllOrders() }, [])
     return (
         <div className="orders-wrapper">
             {data.map(item => {
@@ -25,8 +30,11 @@ function Orders(props) {
                         product={item.product.description}
                         service={item.service.description}
                         icon={orderIcon}
-                        edit={editOrder}
-                        delete={deleteOrder} />
+                        editPath={'orders-form'}
+                        id={item._id}
+                        item={item}
+                        history={props.history}
+                        deleteItem={deleteOrder} />
                 )
             })}
             <AddCard text='Add New Order' onClick={addOrder} />
@@ -35,6 +43,6 @@ function Orders(props) {
 }
 
 const mapStateToProps = ({ orders }) => ({ orders });
-const mapDispatchToProps = null;
+const mapDispatchToProps = { getAllOrders, deleteOrder };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
