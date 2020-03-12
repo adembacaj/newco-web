@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Router from './Router';
 import axios from 'axios';
-import config from './services/config';
+import config from './config';
 import { getAllProducts } from './store/actions/products.actions';
 import { getAllServices } from './store/actions/services.actions';
 import { getAllShops } from './store/actions/shops.actions';
