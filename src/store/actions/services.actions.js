@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_SERVICES, GET_SERVICE, CREATE_SERVICE, UPDATE_SERVICE, DELETE_SERVICE } from '../actionTypes';
+import { GET_SERVICES, GET_SERVICE, CREATE_SERVICE, UPDATE_SERVICE, DELETE_SERVICE, SERVICE_SALES } from '../actionTypes';
 
 export const getAllServices = () => async (dispatch) => {
     try {
@@ -52,6 +52,17 @@ export const deleteService = (id) => async (dispatch) => {
             dispatch({ type: DELETE_SERVICE })
         }
     } catch (e) {
+        Promise.reject(e)
+    }
+}
+
+export const getTopSoldServices = () => async(dispatch) => {
+    try{
+        const {data} = await axios.get('/services/topsold');
+        if(data.success){
+            dispatch({ type: SERVICE_SALES, data })
+        }
+    }catch(e){
         Promise.reject(e)
     }
 }
