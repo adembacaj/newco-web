@@ -24,6 +24,7 @@ export const getOneProduct = (id) => async (dispatch) => {
 }
 
 export const createProduct = (body) => async (dispatch) => {
+    console.log(body)
     try {
         const { data } = await axios.post('/products', body);
         if (data.success) {

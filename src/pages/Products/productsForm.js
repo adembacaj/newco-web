@@ -11,15 +11,17 @@ function ProductsForm(props) {
     const [description, setDescription] = useState('');
     const [validity, setValidity] = useState('');
     const [state, setState] = useState('');
+    const [stocks, setStocks] = useState(false);
     const [productId, setProductId] = useState('')
 
     const handleServiceSelect = useCallback((service) => { setServiceValue(service) }, [serviceValue]);
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
+        const { name, value, checked } = e.target;
         switch (name) {
             case 'description': setDescription(value); break;
             case 'validity': setValidity(value); break;
             case 'state': setState(value); break;
+            case 'stocks': setStocks(checked); break;
             default: break;
         }
     }, [])
@@ -32,6 +34,7 @@ function ProductsForm(props) {
             setDescription(props.history.location.state.item.description);
             setValidity(props.history.location.state.item.validity);
             setState(props.history.location.state.item.state);
+            setStocks(props.history.location.state.item.stocks);
             let services = [];
             props.history.location.state.item.services.forEach(service => services.push({ label: service.description, value: service.id }));
             setServiceValue(services)
@@ -48,7 +51,7 @@ function ProductsForm(props) {
         let services = [];
         if (description !== '' && validity !== '' && state !== '' && serviceValue) {
             serviceValue.forEach(service => services.push(service.value))
-            const body = { description, validity, state, services: `[${services}]` }
+            const body = { description, validity, state, services: `[${services}]`, stocks }
             if (productId) {
                 props.updateProduct(body, productId);
                 props.history.goBack()
@@ -78,6 +81,13 @@ function ProductsForm(props) {
                     onChange={handleServiceSelect}
                     options={serviceOptions}
                 />
+                <div className="products-form__switch">
+                    <div className="products-form__switch-title">Is out of stocks: </div>
+                    <label className="switch">
+                        <input onChange={handleChange} checked={stocks} name="stocks" type="checkbox" />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
