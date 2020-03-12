@@ -1,38 +1,82 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import HomeCard from '../../components/HomeCard';
 import './home.scss'
-import { getProductSales, getProductsOutOfStocks } from '../../store/actions/products.actions';
-import {getTopSoldServices} from '../../store/actions/services.actions';
-import { getAssistantSales } from '../../store/actions/assistants.actions';
+import homeService from '../../services/homeService';
 
 function Home(props) {
-    useEffect(() => {
-        props.getProductSales();
-        props.getTopSoldServices();
-        props.getProductsOutOfStocks();
-        props.getAssistantSales();
-    }, [])
-    useEffect(() => {
-        console.log('productSales', props.productSales)
-        console.log('topSoldServices', props.topSoldServices)
-        console.log('productsOutOfStocks', props.productsOutOfStocks)
-        console.log('assistantSales', props.assistantSales)
-    }, [props.productSales, props.serviceSales, props.productsOutOfStocks, props.assistantSales])
+    const {
+        productSales,
+        serviceSales,
+        topSoldServices,
+        productsOutOfStocks,
+        assistantSales,
+        products,
+        services,
+        assistants,
+        shopSales,
+        shops,
+        bestAssistantSale,
+        worstAssistantSale
+    } = props;
+
+    const [productSalesState, setProductSalesState] = useState([]);
+    const [topSoldServicesState, setTopSoldServicesState] = useState([]);
+    const [productsOutOfStocksState, setProductsOutOfStocksState] = useState([]);
+    const [shopAssistantsSalesState, setShopAssistantsSalesState] = useState([]);
+    const [shopSalesState, setShopSalesState] = useState([]);
+    const [bestAssistantSaleState, setBestAssistantSaleState] = useState([]);
+    const [worstAssistantSaleState, setWorstAssistantSaleState] = useState([]);
+
+    useEffect(() => { callService() }, [productSales, serviceSales, productsOutOfStocks, assistantSales, products, services, assistants])
+
+    async function callService() {
+        setProductSalesState(await homeService.productSale(productSales, products));
+        setTopSoldServicesState(await homeService.serviceTopSale(topSoldServices, services));
+        setProductsOutOfStocksState(productsOutOfStocks);
+        setShopAssistantsSalesState(await homeService.getAssistantSales(assistantSales, assistants));
+        setShopSalesState(await homeService.getShopSales(shopSales, shops));
+        setBestAssistantSaleState(await homeService.getBestAssistantSale(bestAssistantSale, assistants));
+        setWorstAssistantSaleState(await homeService.getWorstAssistantSale(worstAssistantSale, assistants));
+    }
     return (
         <div className="home-wrapper">
-            <HomeCard header="Product Sales" body="Blank Card" />
-            <HomeCard header="Top Sold Services" body="Blank Card" />
-            <HomeCard header="Products out of stock" body="Blank Card" />
-            <HomeCard header="Sales for the Shop Assistant" body="Blank Card" />
-            <HomeCard header="Sales for Shop" body="Blank Card" />
-            <HomeCard header="Best Selling Shop Assistants" body="Blank Card" />
-            <HomeCard header="Worst Selling Shop Assistants" body="Blank Card" />
+            <HomeCard header="Product Sales" data={productSalesState} />
+            <HomeCard header="Top Sold Services" data={topSoldServicesState} />
+            <HomeCard header="Products out of stock" data={productsOutOfStocksState} isStock />
+            <HomeCard header="Sales for the Shop Assistant" data={shopAssistantsSalesState} />
+            <HomeCard header="Sales for Shop" data={shopSalesState} />
+            <HomeCard header="Best Selling Shop Assistants" data={bestAssistantSaleState} />
+            <HomeCard header="Worst Selling Shop Assistants" data={worstAssistantSaleState} />
         </div>
     )
 }
 
-const mapStateToProps = ({ productSales, topSoldServices, productsOutOfStocks, assistantSales }) => ({ productSales, topSoldServices, productsOutOfStocks, assistantSales });
-const mapDispatchToProps = { getProductSales, getTopSoldServices, getProductsOutOfStocks, getAssistantSales };
+const mapStateToProps = ({
+    productSales,
+    products,
+    topSoldServices,
+    services,
+    productsOutOfStocks,
+    assistantSales,
+    assistants,
+    shopSales,
+    shops,
+    bestAssistantSale,
+    worstAssistantSale
+}) => ({
+    productSales,
+    products,
+    topSoldServices,
+    services,
+    productsOutOfStocks,
+    assistantSales,
+    assistants,
+    shopSales,
+    shops,
+    bestAssistantSale,
+    worstAssistantSale
+});
+const mapDispatchToProps = null;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

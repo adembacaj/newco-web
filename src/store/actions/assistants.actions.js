@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { GET_ASSISTANTS, GET_ASSISTANT, CREATE_ASSISTANT, UPDATE_ASSISTANT, DELETE_ASSISTANT, ASSISTANT_SALES } from '../actionTypes';
+import { 
+    GET_ASSISTANTS, 
+    GET_ASSISTANT, 
+    CREATE_ASSISTANT, 
+    UPDATE_ASSISTANT, 
+    DELETE_ASSISTANT, 
+    ASSISTANT_SALES,
+    BEST_ASSISTANT_SALE,
+    WORST_ASSISTANT_SALE
+ } from '../actionTypes';
 
 export const getAllAssistants = () => async (dispatch) => {
     try {
@@ -60,7 +69,29 @@ export const getAssistantSales = () => async (dispatch) => {
     try {
         const { data } = await axios.get('/assistants/sales');
         if (data.success) {
-            dispatch({ type: ASSISTANT_SALES, data })
+            dispatch({ type: ASSISTANT_SALES, data: data.data })
+        }
+    } catch (e) {
+        Promise.reject(e)
+    }
+}
+
+export const getBestAssistantSales = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get('/assistants/bestsale');
+        if (data.success) {
+            dispatch({ type: BEST_ASSISTANT_SALE, data: data.data })
+        }
+    } catch (e) {
+        Promise.reject(e)
+    }
+}
+
+export const getWorstAssistantSales = () => async (dispatch, getState) => {
+    try {
+        const { data } = await axios.get('/assistants/worstsale');
+        if (data.success) {
+            dispatch({ type: WORST_ASSISTANT_SALE, data: data.data })
         }
     } catch (e) {
         Promise.reject(e)

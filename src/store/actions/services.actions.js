@@ -60,7 +60,7 @@ export const getTopSoldServices = () => async(dispatch) => {
     try{
         const {data} = await axios.get('/services/topsold');
         if(data.success){
-            dispatch({ type: SERVICE_SALES, data })
+            dispatch({ type: SERVICE_SALES, data: data.data })
         }
     }catch(e){
         Promise.reject(e)

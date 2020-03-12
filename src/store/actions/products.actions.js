@@ -24,7 +24,6 @@ export const getOneProduct = (id) => async (dispatch) => {
 }
 
 export const createProduct = (body) => async (dispatch) => {
-    console.log(body)
     try {
         const { data } = await axios.post('/products', body);
         if (data.success) {
@@ -61,7 +60,7 @@ export const getProductSales = () => async(dispatch) => {
     try{
         const {data} = await axios.get('/products/sales');
         if(data.success){
-            dispatch({ type: PRODUCT_SALES, data })
+            dispatch({ type: PRODUCT_SALES, data: data.data })
         }
     }catch(e){
         Promise.reject(e)
@@ -72,7 +71,7 @@ export const getProductsOutOfStocks = () => async (dispatch) => {
     try{
         const {data} = await axios.get('/products/stocks')
         if(data.success){
-            dispatch({type: PRODUCT_OUT_OF_STOCKS, data})
+            dispatch({type: PRODUCT_OUT_OF_STOCKS, data: data.data})
         }
     }catch(e){
         Promise.reject(e)

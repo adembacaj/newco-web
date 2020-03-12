@@ -20,8 +20,6 @@ function ServicesForm(props) {
         }
     }, [])
 
-    useEffect(() => {console.log(is_active)}, [is_active])
-
     useEffect(() => {
         const id = props.match.params.serviceId;
         if (id) {

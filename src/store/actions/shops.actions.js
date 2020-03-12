@@ -60,7 +60,7 @@ export const getShopSales = () => async (dispatch) => {
     try {
         const { data } = await axios.get(`/shops/sales`);
         if (data.success) {
-            dispatch({ type: SHOP_SALES, data })
+            dispatch({ type: SHOP_SALES, data: data.data })
         }
     } catch (e) {
         Promise.reject(e)

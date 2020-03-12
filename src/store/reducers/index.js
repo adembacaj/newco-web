@@ -10,6 +10,8 @@ import topSoldServices from './service.sales.reducers';
 import productsOutOfStocks from './products.out.of.stocks.redcers';
 import assistantSales from './assistant.sales.reducers';
 import shopSales from './shop.sales.reducers';
+import bestAssistantSale from './best.assistant.sale';
+import worstAssistantSale from './worst.assistant.sale';
 
 export default combineReducers({
     products,
@@ -22,5 +24,7 @@ export default combineReducers({
     topSoldServices,
     productsOutOfStocks,
     assistantSales,
-    shopSales
+    shopSales,
+    bestAssistantSale,
+    worstAssistantSale
  });

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Router from './Router';
 import axios from 'axios';
 import config from './config';
-import { getAllProducts } from './store/actions/products.actions';
-import { getAllServices } from './store/actions/services.actions';
-import { getAllShops } from './store/actions/shops.actions';
-import { getAllAssistants } from './store/actions/assistants.actions';
+import { getAllProducts, getProductSales, getProductsOutOfStocks } from './store/actions/products.actions';
+import { getAllServices, getTopSoldServices } from './store/actions/services.actions';
+import { getAllShops, getShopSales } from './store/actions/shops.actions';
+import { getAllAssistants, getAssistantSales, getBestAssistantSales, getWorstAssistantSales } from './store/actions/assistants.actions';
 import { getAllCustomers } from './store/actions/customers.actions';
 import { getAllOrders } from './store/actions/orders.actions';
 
@@ -19,6 +19,13 @@ function App(props) {
     props.getAllProducts();
     props.getAllServices();
     props.getAllShops();
+    props.getProductSales();
+    props.getTopSoldServices();
+    props.getProductsOutOfStocks();
+    props.getAssistantSales();
+    props.getShopSales();
+    props.getBestAssistantSales();
+    props.getWorstAssistantSales();
   }, [])
   return (
     <>
@@ -28,6 +35,20 @@ function App(props) {
 }
 
 const mapStateToProps = null;
-const mapDispatchToProps = { getAllAssistants, getAllCustomers, getAllOrders, getAllProducts, getAllServices, getAllShops };
+const mapDispatchToProps = { 
+  getAllAssistants, 
+  getAllCustomers, 
+  getAllOrders, 
+  getAllProducts, 
+  getAllServices, 
+  getAllShops,
+  getProductSales,
+  getTopSoldServices,
+  getProductsOutOfStocks,
+  getAssistantSales,
+  getShopSales,
+  getBestAssistantSales,
+  getWorstAssistantSales,
+ };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
