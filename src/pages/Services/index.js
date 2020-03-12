@@ -11,25 +11,28 @@ function Services(props) {
     const { serviceIcon } = images;
     const addService = useCallback(() => { props.history.push('services-form') }, [])
 
-    const deleteService = useCallback((id) => {
-        props.deleteService(id);
-        props.getAllServices()
-    }, []);
-
-    useEffect(() => { setData(props.services) }, [props.services]);
+    useEffect(() => { getData() }, [props.services]);
     useEffect(() => { props.getAllServices() }, [])
+
+    async function getData() {
+        await setData(props.services)
+    }
+    async function deleteService(id) {
+        await props.deleteService(id);
+        await props.getAllServices()
+    }
     return (
         <div className="services-wrapper">
             {data.map(item => {
                 return (
                     <CardInfo
                         item={item}
-                        key={item._id}
+                        key={item.id}
                         icon={serviceIcon}
                         title={item.description}
                         subtitles={[`Price: $ ${item.price}`, `isActive: ${item.is_active}`]}
                         editPath='services-form'
-                        id={item._id}
+                        id={item.id}
                         history={props.history}
                         deleteItem={deleteService} />
                 )

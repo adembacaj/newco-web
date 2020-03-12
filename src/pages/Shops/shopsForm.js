@@ -31,14 +31,14 @@ function ShopsForm(props) {
             setCity(props.history.location.state.item.city);
             if (props.history.location.state.item.assistants) {
                 let assistants = [];
-                props.history.location.state.item.assistants.forEach(assistant => assistants.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant._id }));
+                props.history.location.state.item.assistants.forEach(assistant => assistants.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant.id }));
                 setAssistantValue(assistants)
             }
         }
     }, [])
     useEffect(() => {
         let options = [];
-        props.assistants.forEach(assistant => options.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant._id }))
+        props.assistants.forEach(assistant => options.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant.id }))
         setAssistantOptions([{ label: 'Shop Assistants', options }])
     }, [props.assistants])
 
@@ -47,7 +47,7 @@ function ShopsForm(props) {
         let assistants = [];
         if (name !== '' && city !== '' && assistantValue !== null) {
             assistantValue.forEach(assistant => assistants.push(assistant.value))
-            const body = { name, city, assistants }
+            const body = { name, city, assistants: `[${assistants}]` }
             if (shopId) {
                 props.updateShop(body, shopId);
                 props.history.goBack()

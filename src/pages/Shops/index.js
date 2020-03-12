@@ -5,33 +5,38 @@ import AddCard from '../../components/AddCard';
 import './shops.scss';
 import images from '../../assets/images';
 import { getAllShops, deleteShop } from '../../store/actions/shops.actions';
+import expandShops from '../../services/shopService';
 
 function Shops(props) {
+    const { shopIcon } = images;
     const [data, setData] = useState([]);
 
-    const { shopIcon } = images;
     const addShop = useCallback(() => { props.history.push('shops-form') }, []);
 
-    const deleteShop = useCallback((id) => {
-        props.deleteShop(id);
-        props.getAllShops()
-    }, []);
-
     useEffect(() => { props.getAllShops() }, [])
-    useEffect(() => { setData(props.shops) }, [props.shops])
+    useEffect(() => { getShops() }, [props.shops, props.assistants])
+
+    async function getShops() {
+        const expandedShops = await expandShops(props.shops, props.assistants);
+        await setData(expandedShops)
+    }
+    async function deleteShop(id) {
+        await props.deleteShop(id);
+        await props.getAllShops()
+    }
     return (
         <div className="shops-wrapper">
             {data.map(item => {
                 return (
                     <CardInfo
-                        key={item._id}
+                        key={item.id}
                         item={item}
                         icon={shopIcon}
                         title={item.name}
                         subtitles={[`City: ${item.city}`]}
                         editPath='shops-form'
                         history={props.history}
-                        id={item._id}
+                        id={item.id}
                         deleteItem={deleteShop} />
                 )
             })}
@@ -40,7 +45,7 @@ function Shops(props) {
     )
 }
 
-const mapStateToProps = ({ shops }) => ({ shops });
+const mapStateToProps = ({ shops, assistants }) => ({ shops, assistants });
 const mapDispatchToProps = { getAllShops, deleteShop };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shops);

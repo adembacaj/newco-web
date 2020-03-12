@@ -7,28 +7,33 @@ import images from '../../assets/images';
 import { deleteCustomer, getAllCustomers } from '../../store/actions/customers.actions';
 
 function Customers(props) {
-    const [data, setData] = useState([])
     const { customerIcon } = images;
+    const [data, setData] = useState([])
     const addCustomer = useCallback(() => { props.history.push('customers-form') }, []);
 
-    const deleteCustomer = useCallback((id) => {
-        props.deleteCustomer(id);
-        props.getAllCustomers()
-    }, []);
-
-    useEffect(() => { setData(props.customers) }, [props.customers]);
+    useEffect(() => { getData() }, [props.customers]);
     useEffect(() => { props.getAllCustomers() }, [])
+
+    async function getData(){
+        await setData(props.customers)
+    }
+
+    async function deleteCustomer(id) {
+        await props.deleteCustomer(id);
+        await props.getAllCustomers()
+    }
     return (
         <div className="customers-wrapper">
             {data.map(item => {
                 return (
                     <CardInfo
                         item={item}
-                        key={item._id}
+                        key={item.id}
                         icon={customerIcon}
                         title={`${item.name} ${item.surname}`}
+                        subtitles={[item.address, item.phone_number]}
                         editPath='customers-form'
-                        id={item._id}
+                        id={item.id}
                         history={props.history}
                         deleteItem={deleteCustomer} />
                 )

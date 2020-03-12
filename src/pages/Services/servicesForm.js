@@ -6,19 +6,21 @@ import { updateService, createService } from '../../store/actions/services.actio
 function ServicesForm(props) {
     const [title, setTitle] = useState('Add Service');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
-    const [is_active, setIsActive] = useState('');
+    const [price, setPrice] = useState();
+    const [is_active, setIsActive] = useState(false);
     const [serviceId, setServiceId] = useState('')
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
+        const { name, value, checked } = e.target;
         switch (name) {
             case 'description': setDescription(value); break;
             case 'price': setPrice(value); break;
-            case 'is_active': setIsActive(value); break;
+            case 'is_active': setIsActive(checked); break;
             default: break;
         }
     }, [])
+
+    useEffect(() => {console.log(is_active)}, [is_active])
 
     useEffect(() => {
         const id = props.match.params.serviceId;
@@ -33,7 +35,7 @@ function ServicesForm(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (description !== '' && price !== '' && is_active !== '') {
+        if (description !== '' && price !== '') {
             const body = { description, price, is_active }
             if (serviceId) {
                 props.updateService(body, serviceId);
@@ -52,7 +54,13 @@ function ServicesForm(props) {
             <form onSubmit={onSubmit} name="serviceForm">
                 <input onChange={handleChange} value={description} name="description" className="services-form__input" placeholder="Description" />
                 <input onChange={handleChange} value={price} name="price" className="services-form__input" placeholder="Price" type="number" />
-                <input onChange={handleChange} value={is_active} name="is_active" className="services-form__input" placeholder="IsActive" />
+                <div className="services-form__switch">
+                    <div className="services-form__switch-title">Is Active: </div>
+                    <label className="switch">
+                        <input onChange={handleChange} checked={is_active} name="is_active" type="checkbox" />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>

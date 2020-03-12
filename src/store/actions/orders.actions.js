@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GET_ORDERS, GET_ORDER, CREATE_ORDER, UPDATE_ORDER, DELETE_ORDER } from '../actionTypes';
 
-export const getAllOrders = () => async (dispatch) => {
+export const getAllOrders = () => async (dispatch, getState) => {
     try {
         const { data } = await axios.get('/orders');
         if (data.success) {

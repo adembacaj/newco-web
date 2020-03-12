@@ -6,17 +6,17 @@ import { updateOrder, createOrder } from '../../store/actions/orders.actions';
 
 function OrdersForm(props) {
     const [title, setTitle] = useState('Add Order');
-    const [customerValue, setCustomerValue] = useState('');
+    const [customerValue, setCustomerValue] = useState();
     const [customerOptions, setCustomerOptions] = useState([]);
-    const [shopValue, setShopValue] = useState('');
+    const [shopValue, setShopValue] = useState();
     const [shopOptions, setShopOptions] = useState([]);
-    const [assistantValue, setAssistantValue] = useState('');
+    const [assistantValue, setAssistantValue] = useState();
     const [assistantOptions, setAssistantOptions] = useState([]);
-    const [productValue, setProductValue] = useState('');
+    const [productValue, setProductValue] = useState();
     const [productOptions, setProductOptions] = useState([]);
-    const [serviceValue, setServiceValue] = useState('');
+    const [serviceValue, setServiceValue] = useState();
     const [serviceOptions, setServiceOptions] = useState([]);
-    const [orderId, setOrderId] = useState('')
+    const [orderId, setOrderId] = useState()
 
     const handleCustomerSelect = useCallback((customer) => { setCustomerValue(customer) }, [customerValue]);
     const handleShopSelect = useCallback((shop) => { setShopValue(shop) }, [shopValue]);
@@ -30,11 +30,11 @@ function OrdersForm(props) {
             const {customer, shop, assistant, product, service} = props.history.location.state.item;
             setTitle('Edit Order');
             setOrderId(id)
-            setCustomerValue({label: `${customer.name} ${customer.surname}`, value: customer._id});
-            setShopValue({label: shop.name, value: shop._id});
-            setAssistantValue({label: `${assistant.name} ${assistant.surname}`, value: assistant._id});
-            setProductValue({label: product.description, value: product._id});
-            setServiceValue({label: service.description, value: service._id});
+            setCustomerValue({label: `${customer.name} ${customer.surname}`, value: customer.id});
+            setShopValue({label: shop.name, value: shop.id});
+            setAssistantValue({label: `${assistant.name} ${assistant.surname}`, value: assistant.id});
+            setProductValue({label: product.description, value: product.id});
+            setServiceValue({label: service.description, value: service.id});
         }
     }, [])
 
@@ -45,11 +45,11 @@ function OrdersForm(props) {
         let productOption = [];
         let serviceOption = [];
 
-        props.customers.forEach(customer => customerOption.push({ label: `${customer.name} ${customer.surname}`, value: customer._id }));
-        props.shops.forEach(shop => shopOption.push({ label: shop.name, value: shop._id }));
-        props.assistants.forEach(assistant => assistantOption.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant._id }));
-        props.products.forEach(product => productOption.push({ label: product.description, value: product._id }));
-        props.services.forEach(service => serviceOption.push({ label: service.description, value: service._id }));
+        props.customers.forEach(customer => customerOption.push({ label: `${customer.name} ${customer.surname}`, value: customer.id }));
+        props.shops.forEach(shop => shopOption.push({ label: shop.name, value: shop.id }));
+        props.assistants.forEach(assistant => assistantOption.push({ label: `${assistant.name} ${assistant.surname}`, value: assistant.id }));
+        props.products.forEach(product => productOption.push({ label: product.description, value: product.id }));
+        props.services.forEach(service => serviceOption.push({ label: service.description, value: service.id }));
 
         setCustomerOptions([{ label: 'Customers', options: customerOption }]);
         setShopOptions([{ label: 'Shops', options: shopOption }]);

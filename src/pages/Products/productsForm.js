@@ -33,22 +33,22 @@ function ProductsForm(props) {
             setValidity(props.history.location.state.item.validity);
             setState(props.history.location.state.item.state);
             let services = [];
-            props.history.location.state.item.services.forEach(service => services.push({ label: service.description, value: service._id }));
+            props.history.location.state.item.services.forEach(service => services.push({ label: service.description, value: service.id }));
             setServiceValue(services)
         }
     }, [])
     useEffect(() => {
         let options = [];
-        props.services.forEach(service => options.push({ label: service.description, value: service._id }))
+        props.services.forEach(service => options.push({ label: service.description, value: service.id }))
         setServiceOptions([{ label: 'Services', options }])
     }, [props.services])
 
     const onSubmit = (e) => {
         e.preventDefault();
         let services = [];
-        if (description !== '' && validity !== '' && state !== '' && serviceValue.length) {
+        if (description !== '' && validity !== '' && state !== '' && serviceValue) {
             serviceValue.forEach(service => services.push(service.value))
-            const body = { description, validity, state, services }
+            const body = { description, validity, state, services: `[${services}]` }
             if (productId) {
                 props.updateProduct(body, productId);
                 props.history.goBack()

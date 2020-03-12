@@ -9,26 +9,30 @@ import { deleteAssistant, getAllAssistants } from '../../store/actions/assistant
 function ShopAssistants(props) {
     const [data, setData] = useState([])
     const { assistantIcon } = images;
+
     const addShopAssistant = useCallback(() => { props.history.push('assistants-form') }, [])
 
-    const deleteAssistant = useCallback((id) => {
-        props.deleteAssistant(id);
-        props.getAllAssistants()
-    }, []);
-
-    useEffect(() => { setData(props.assistants) }, [props.assistants]);
+    useEffect(() => { getData() }, [props.assistants]);
     useEffect(() => { props.getAllAssistants() }, [])
+
+    async function getData() {
+        await setData(props.assistants)
+    }
+    async function deleteAssistant(id) {
+        await props.deleteAssistant(id);
+        await props.getAllAssistants()
+    }
     return (
         <div className="assistants-wrapper">
             {data.map(item => {
                 return (
                     <CardInfo
                         item={item}
-                        key={item._id}
+                        key={item.id}
                         icon={assistantIcon}
                         title={`${item.name} ${item.surname}`}
                         editPath='assistants-form'
-                        id={item._id}
+                        id={item.id}
                         history={props.history}
                         deleteItem={deleteAssistant} />
                 )

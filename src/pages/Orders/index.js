@@ -5,25 +5,30 @@ import AddCard from '../../components/AddCard';
 import './orders.scss';
 import images from '../../assets/images';
 import { getAllOrders, deleteOrder } from '../../store/actions/orders.actions';
+import expandOrders from '../../services/orderService';
 
 function Orders(props) {
-    const [data, setData] = useState([])
+    const { orders, customers, shops, assistants, products, services } = props;
+    const [data, setData] = useState([]);
     const { orderIcon } = images;
 
-    const deleteOrder = useCallback(async(id) => { 
+    const deleteOrder = useCallback(async (id) => {
         await props.deleteOrder(id);
         await props.getAllOrders()
-     }, [])
+    }, [])
     const addOrder = useCallback(() => { props.history.push('orders-form') }, [])
 
-    useEffect(() => { setData(props.orders) }, [props.orders])
+    useEffect(() => {
+        const expandedOrders = expandOrders(orders, customers, shops, assistants, products, services)
+        setData(expandedOrders)
+    }, [orders, customers, shops, assistants, products, services])
     useEffect(() => { props.getAllOrders() }, [])
     return (
         <div className="orders-wrapper">
             {data.map(item => {
                 return (
                     <OrderCard
-                        key={item._id}
+                        key={item.id}
                         customer={item.customer.name}
                         shop={item.shop.name}
                         assistant={item.assistant.name}
@@ -31,7 +36,7 @@ function Orders(props) {
                         service={item.service.description}
                         icon={orderIcon}
                         editPath={'orders-form'}
-                        id={item._id}
+                        id={item.id}
                         item={item}
                         history={props.history}
                         deleteItem={deleteOrder} />
@@ -42,7 +47,7 @@ function Orders(props) {
     )
 }
 
-const mapStateToProps = ({ orders }) => ({ orders });
+const mapStateToProps = ({ orders, customers, shops, assistants, products, services }) => ({ orders, customers, shops, assistants, products, services });
 const mapDispatchToProps = { getAllOrders, deleteOrder };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
