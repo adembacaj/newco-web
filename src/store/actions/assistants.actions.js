@@ -79,8 +79,10 @@ export const getAssistantSales = () => async (dispatch) => {
 export const getBestAssistantSales = () => async (dispatch) => {
     try {
         const { data } = await axios.get('/assistants/bestsale');
-        if (data.success) {
+        if (data.success && data.data) {
             dispatch({ type: BEST_ASSISTANT_SALE, data: data.data })
+        }else{
+            dispatch({ type: BEST_ASSISTANT_SALE, data: [] })
         }
     } catch (e) {
         Promise.reject(e)
@@ -90,8 +92,10 @@ export const getBestAssistantSales = () => async (dispatch) => {
 export const getWorstAssistantSales = () => async (dispatch, getState) => {
     try {
         const { data } = await axios.get('/assistants/worstsale');
-        if (data.success) {
+        if (data.success && data.data) {
             dispatch({ type: WORST_ASSISTANT_SALE, data: data.data })
+        }else{
+            dispatch({ type: WORST_ASSISTANT_SALE, data: [] })
         }
     } catch (e) {
         Promise.reject(e)

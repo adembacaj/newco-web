@@ -19,6 +19,8 @@ function App(props) {
     props.getAllProducts();
     props.getAllServices();
     props.getAllShops();
+  }, [])
+  useEffect(() => {
     props.getProductSales();
     props.getTopSoldServices();
     props.getProductsOutOfStocks();
@@ -26,7 +28,7 @@ function App(props) {
     props.getShopSales();
     props.getBestAssistantSales();
     props.getWorstAssistantSales();
-  }, [])
+  }, [props.orders])
   return (
     <>
       <Router />
@@ -34,13 +36,13 @@ function App(props) {
   );
 }
 
-const mapStateToProps = null;
-const mapDispatchToProps = { 
-  getAllAssistants, 
-  getAllCustomers, 
-  getAllOrders, 
-  getAllProducts, 
-  getAllServices, 
+const mapStateToProps = ({ orders }) => ({ orders });
+const mapDispatchToProps = {
+  getAllAssistants,
+  getAllCustomers,
+  getAllOrders,
+  getAllProducts,
+  getAllServices,
   getAllShops,
   getProductSales,
   getTopSoldServices,
@@ -49,6 +51,6 @@ const mapDispatchToProps = {
   getShopSales,
   getBestAssistantSales,
   getWorstAssistantSales,
- };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
