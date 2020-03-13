@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router as BaseRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Router as BaseRouter, Route, Switch } from 'react-router-dom';
 import history from './history';
 
 //pages

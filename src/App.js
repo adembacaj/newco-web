@@ -29,6 +29,7 @@ function App(props) {
     props.getBestAssistantSales();
     props.getWorstAssistantSales();
   }, [props.orders])
+  
   return (
     <>
       <Router />
