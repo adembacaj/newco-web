@@ -16,7 +16,7 @@ function Customers(props) {
     useEffect(() => {
         props.getAllCustomers();
         getData();
-    }, [props.customers]);
+    }, []);
 
     async function deleteCustomer(id) {
         await props.deleteCustomer(id);

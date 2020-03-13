@@ -13,9 +13,9 @@ function Services(props) {
     const getData = useCallback(async () => { await setData(props.services) }, [])
 
     useEffect(() => {
-        getData()
-        props.getAllServices()
-    }, [props.services]);
+        props.getAllServices();
+        getData();
+    }, []);
 
     async function deleteService(id) {
         await props.deleteService(id);

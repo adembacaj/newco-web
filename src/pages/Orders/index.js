@@ -22,7 +22,7 @@ function Orders(props) {
         props.getAllOrders();
         const expandedOrders = orderService.expandOrders(orders, customers, shops, assistants, products, services)
         setData(expandedOrders)
-    }, [orders, customers, shops, assistants, products, services])
+    }, [])
     
     return (
         <div className="orders-wrapper">

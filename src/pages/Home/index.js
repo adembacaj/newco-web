@@ -3,22 +3,16 @@ import { connect } from 'react-redux';
 import HomeCard from '../../components/HomeCard';
 import './home.scss'
 import homeService from '../../services/homeService';
+import { getAllProducts, getProductSales, getProductsOutOfStocks } from '../../store/actions/products.actions';
+import { getAllServices, getTopSoldServices } from '../../store/actions/services.actions';
+import { getAllShops, getShopSales } from '../../store/actions/shops.actions';
+import { getAllAssistants, getAssistantSales, getBestAssistantSales, getWorstAssistantSales } from '../../store/actions/assistants.actions';
+import { getAllCustomers } from '../../store/actions/customers.actions';
+import { getAllOrders } from '../../store/actions/orders.actions';
 
 function Home(props) {
-    const {
-        productSales,
-        serviceSales,
-        topSoldServices,
-        productsOutOfStocks,
-        assistantSales,
-        products,
-        services,
-        assistants,
-        shopSales,
-        shops,
-        bestAssistantSale,
-        worstAssistantSale
-    } = props;
+    const { productSales, serviceSales, topSoldServices, productsOutOfStocks, assistantSales, products, services,
+        assistants, shopSales, shops, bestAssistantSale, worstAssistantSale } = props;
 
     const [productSalesState, setProductSalesState] = useState([]);
     const [topSoldServicesState, setTopSoldServicesState] = useState([]);
@@ -28,6 +22,21 @@ function Home(props) {
     const [bestAssistantSaleState, setBestAssistantSaleState] = useState([]);
     const [worstAssistantSaleState, setWorstAssistantSaleState] = useState([]);
 
+    useEffect(() => {
+        props.getAllAssistants();
+        props.getAllCustomers();
+        props.getAllOrders();
+        props.getAllProducts();
+        props.getAllServices();
+        props.getAllShops();
+        props.getProductSales();
+        props.getTopSoldServices();
+        props.getAssistantSales();
+        props.getShopSales();
+        props.getBestAssistantSales();
+        props.getWorstAssistantSales();
+        props.getProductsOutOfStocks();
+    }, [])
     useEffect(() => { callService() }, [productSales, serviceSales, productsOutOfStocks, assistantSales, products, services, assistants])
 
     async function callService() {
@@ -77,6 +86,20 @@ const mapStateToProps = ({
     bestAssistantSale,
     worstAssistantSale
 });
-const mapDispatchToProps = null;
+const mapDispatchToProps = {
+    getAllAssistants,
+    getAllCustomers,
+    getAllOrders,
+    getAllProducts,
+    getAllServices,
+    getAllShops,
+    getProductSales,
+    getTopSoldServices,
+    getProductsOutOfStocks,
+    getAssistantSales,
+    getShopSales,
+    getBestAssistantSales,
+    getWorstAssistantSales,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

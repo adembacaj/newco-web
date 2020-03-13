@@ -16,7 +16,7 @@ function Shops(props) {
     useEffect(() => { 
         props.getAllShops();
         getShops();
-     }, [props.shops, props.assistants])
+     }, [])
 
     async function getShops() {
         const expandedShops = await expandShops(props.shops, props.assistants);
