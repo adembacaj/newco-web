@@ -28,7 +28,7 @@ function App(props) {
     props.getShopSales();
     props.getBestAssistantSales();
     props.getWorstAssistantSales();
-  }, [props.orders])
+  }, [props.orders, props.products])
   
   return (
     <>
@@ -37,7 +37,7 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({ orders }) => ({ orders });
+const mapStateToProps = ({ orders, products }) => ({ orders, products });
 const mapDispatchToProps = {
   getAllAssistants,
   getAllCustomers,

@@ -14,6 +14,7 @@ function HomeCard({ header, isStock, data }) {
                         </div>
                     )
                 })}
+                {!data.length && <div className="home-card__body-item-left">No Data</div>}
             </div>
         </div>
     )
