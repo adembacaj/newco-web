@@ -45,6 +45,9 @@
                     &:hover{
                         background-color: #111;
                     }
+                    &[is-active = true]{
+                        background-color: #111;
+                    }
                 }
             }
         }
