@@ -6,16 +6,14 @@ import './orders.scss';
 import images from '../../assets/images';
 import { getAllOrders, deleteOrder } from '../../store/actions/orders.actions';
 import orderService from '../../services/orderService';
+import DeleteModal from '../../components/DeleteModal';
 
 function Orders(props) {
     const { orders, customers, shops, assistants, products, services } = props;
-    const [data, setData] = useState([]);
     const { orderIcon } = images;
-
-    const deleteOrder = useCallback(async (id) => {
-        await props.deleteOrder(id);
-        await props.getAllOrders()
-    }, [])
+    const [data, setData] = useState([]);
+    const [modal, setModal] = useState(false)
+    const [deleteId, setDeleteId] = useState('')
     const addOrder = useCallback(() => { props.history.push('orders-form') }, [])
 
     useEffect(() => {
@@ -23,9 +21,19 @@ function Orders(props) {
         const expandedOrders = orderService.expandOrders(orders, customers, shops, assistants, products, services)
         setData(expandedOrders)
     }, [])
-    
+    const deleteOrder = async() => {
+        setModal(!modal)
+        await props.deleteOrder(deleteId);
+        await props.getAllOrders()
+    }
+    const toggleModal = useCallback((id) => {
+        setModal(!modal);
+        setDeleteId(id)
+    }, [modal])
+
     return (
         <div className="orders-wrapper">
+            <DeleteModal title="Delete Order" text="Do you want to delete this Order?" isOpen={modal} toggle={toggleModal} delete={deleteOrder} />
             {data.map(item => {
                 return (
                     <OrderCard
@@ -40,7 +48,7 @@ function Orders(props) {
                         id={item.id}
                         item={item}
                         history={props.history}
-                        deleteItem={deleteOrder} />
+                        deleteItem={toggleModal} />
                 )
             })}
             <AddCard text='Add New Order' onClick={addOrder} />

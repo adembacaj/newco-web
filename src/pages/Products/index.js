@@ -6,10 +6,13 @@ import './products.scss';
 import images from '../../assets/images';
 import { deleteProduct, getAllProducts, getProductsOutOfStocks } from '../../store/actions/products.actions';
 import expandProducts from '../../services/productService';
+import DeleteModal from '../../components/DeleteModal';
 
 function Products(props) {
-    const [data, setData] = useState([])
     const { productIcon } = images;
+    const [data, setData] = useState([])
+    const [modal, setModal] = useState(false)
+    const [deleteId, setDeleteId] = useState('')
 
     useEffect(() => {
         props.getAllProducts();
@@ -23,12 +26,19 @@ function Products(props) {
         const expandedProducts = await expandProducts(props.products, props.services);
         await setData(expandedProducts)
     }
-    async function deleteProduct(id) {
-        await props.deleteProduct(id);
+    async function deleteProduct() {
+        toggleModal()
+        await props.deleteProduct(deleteId);
         await props.getAllProducts()
     }
+    const toggleModal = useCallback((id) => {
+        setModal(!modal);
+        setDeleteId(id)
+    }, [modal])
+
     return (
         <div className="products-wrapper">
+            <DeleteModal title="Delete Product" text="Do you want to delete this Product?" isOpen={modal} toggle={toggleModal} delete={deleteProduct} />
             {data.map(item => {
                 return (
                     <CardInfo
@@ -40,7 +50,7 @@ function Products(props) {
                         editPath='products-form'
                         id={item.id}
                         history={props.history}
-                        deleteItem={deleteProduct} />
+                        deleteItem={toggleModal} />
                 )
             })}
             <AddCard text='Add New Product' onClick={addProduct} />

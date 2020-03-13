@@ -5,10 +5,13 @@ import AddCard from '../../components/AddCard';
 import './shopAssistants.scss';
 import images from '../../assets/images';
 import { deleteAssistant, getAllAssistants } from '../../store/actions/assistants.actions';
+import DeleteModal from '../../components/DeleteModal';
 
 function ShopAssistants(props) {
-    const [data, setData] = useState([])
     const { assistantIcon } = images;
+    const [data, setData] = useState([])
+    const [modal, setModal] = useState(false)
+    const [deleteId, setDeleteId] = useState('')
 
     const addShopAssistant = useCallback(() => { props.history.push('assistants-form') }, [])
     const getData = useCallback(async () => { await setData(props.assistants) }, [])
@@ -18,13 +21,19 @@ function ShopAssistants(props) {
         getData()
     }, []);
 
-    async function deleteAssistant(id) {
-        await props.deleteAssistant(id);
+    async function deleteAssistant() {
+        setModal(!modal);
+        await props.deleteAssistant(deleteId);
         await props.getAllAssistants()
     }
+    const toggleModal = useCallback((id) => {
+        setModal(!modal);
+        setDeleteId(id)
+    }, [modal])
 
     return (
         <div className="assistants-wrapper">
+            <DeleteModal title="Delete Shop Assistant" text="Do you want to delete this Shop Assistant?" isOpen={modal} toggle={toggleModal} delete={deleteAssistant} />
             {data.map(item => {
                 return (
                     <CardInfo
@@ -35,7 +44,7 @@ function ShopAssistants(props) {
                         editPath='assistants-form'
                         id={item.id}
                         history={props.history}
-                        deleteItem={deleteAssistant} />
+                        deleteItem={toggleModal} />
                 )
             })}
             <AddCard text='Add New Shop Assistant' onClick={addShopAssistant} />

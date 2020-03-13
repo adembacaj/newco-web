@@ -6,28 +6,38 @@ import './shops.scss';
 import images from '../../assets/images';
 import { getAllShops, deleteShop } from '../../store/actions/shops.actions';
 import expandShops from '../../services/shopService';
+import DeleteModal from '../../components/DeleteModal';
 
 function Shops(props) {
     const { shopIcon } = images;
     const [data, setData] = useState([]);
+    const [modal, setModal] = useState(false)
+    const [deleteId, setDeleteId] = useState('')
 
     const addShop = useCallback(() => { props.history.push('shops-form') }, []);
-    
-    useEffect(() => { 
+
+    useEffect(() => {
         props.getAllShops();
         getShops();
-     }, [])
+    }, [])
 
     async function getShops() {
         const expandedShops = await expandShops(props.shops, props.assistants);
         await setData(expandedShops)
     }
-    async function deleteShop(id) {
-        await props.deleteShop(id);
+    async function deleteShop() {
+        setModal(!modal);
+        await props.deleteShop(deleteId);
         await props.getAllShops()
     }
+    const toggleModal = useCallback((id) => {
+        setModal(!modal);
+        setDeleteId(id)
+    }, [modal])
+
     return (
         <div className="shops-wrapper">
+            <DeleteModal title="Delete Shop" text="Do you want to delete this Shop?" isOpen={modal} toggle={toggleModal} delete={deleteShop} />
             {data.map(item => {
                 return (
                     <CardInfo
@@ -39,7 +49,7 @@ function Shops(props) {
                         editPath='shops-form'
                         history={props.history}
                         id={item.id}
-                        deleteItem={deleteShop} />
+                        deleteItem={toggleModal} />
                 )
             })}
             <AddCard text='Add New Shop' onClick={addShop} />

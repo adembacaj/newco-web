@@ -7,8 +7,6 @@ import { getAllProducts, getProductSales, getProductsOutOfStocks } from '../../s
 import { getAllServices, getTopSoldServices } from '../../store/actions/services.actions';
 import { getAllShops, getShopSales } from '../../store/actions/shops.actions';
 import { getAllAssistants, getAssistantSales, getBestAssistantSales, getWorstAssistantSales } from '../../store/actions/assistants.actions';
-import { getAllCustomers } from '../../store/actions/customers.actions';
-import { getAllOrders } from '../../store/actions/orders.actions';
 
 function Home(props) {
     const { productSales, serviceSales, topSoldServices, productsOutOfStocks, assistantSales, products, services,
@@ -24,8 +22,6 @@ function Home(props) {
 
     useEffect(() => {
         props.getAllAssistants();
-        props.getAllCustomers();
-        props.getAllOrders();
         props.getAllProducts();
         props.getAllServices();
         props.getAllShops();
@@ -88,8 +84,6 @@ const mapStateToProps = ({
 });
 const mapDispatchToProps = {
     getAllAssistants,
-    getAllCustomers,
-    getAllOrders,
     getAllProducts,
     getAllServices,
     getAllShops,

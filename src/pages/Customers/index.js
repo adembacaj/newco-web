@@ -5,25 +5,34 @@ import AddCard from '../../components/AddCard';
 import './customers.scss';
 import images from '../../assets/images';
 import { deleteCustomer, getAllCustomers } from '../../store/actions/customers.actions';
+import DeleteModal from '../../components/DeleteModal';
 
 function Customers(props) {
     const { customerIcon } = images;
     const [data, setData] = useState([])
-    
+    const [modal, setModal] = useState(false)
+    const [deleteId, setDeleteId] = useState('')
+
     const addCustomer = useCallback(() => { props.history.push('customers-form') }, []);
-    const getData = useCallback(async() => {await setData(props.customers)}, [props.customers])
+    const getData = useCallback(async () => { await setData(props.customers) }, [props.customers])
 
     useEffect(() => {
         props.getAllCustomers();
         getData();
     }, []);
 
-    async function deleteCustomer(id) {
-        await props.deleteCustomer(id);
+    async function deleteCustomer() {
+        setModal(!modal);
+        await props.deleteCustomer(deleteId);
         await props.getAllCustomers()
     }
+    const toggleModal = useCallback((id) => {
+        setModal(!modal);
+        setDeleteId(id)
+    }, [modal])
     return (
         <div className="customers-wrapper">
+            <DeleteModal title="Delete Customer" text="Do you want to delete this customer?" isOpen={modal} toggle={toggleModal} delete={deleteCustomer} />
             {data.map(item => {
                 return (
                     <CardInfo
@@ -35,7 +44,7 @@ function Customers(props) {
                         editPath='customers-form'
                         id={item.id}
                         history={props.history}
-                        deleteItem={deleteCustomer} />
+                        deleteItem={toggleModal} />
                 )
             })}
             <AddCard text='Add New Customer' onClick={addCustomer} />
