@@ -10,7 +10,7 @@ import { getAllAssistants, getAssistantSales, getBestAssistantSales, getWorstAss
 
 function Home(props) {
     const { productSales, serviceSales, topSoldServices, productsOutOfStocks, assistantSales, products, services,
-        assistants, shopSales, shops, bestAssistantSale, worstAssistantSale } = props;
+        assistants, shopSales, shops, bestAssistantSale, worstAssistantSale } = props; //destructuring all the props
 
     const [productSalesState, setProductSalesState] = useState([]);
     const [topSoldServicesState, setTopSoldServicesState] = useState([]);

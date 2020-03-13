@@ -1,3 +1,10 @@
+/*
+    This is a Home page component which shows the infos for every card,
+    It has some props like: 
+    - header,
+    - isStock,
+    - data
+*/
 import React from 'react';
 import './homeCard.scss';
 

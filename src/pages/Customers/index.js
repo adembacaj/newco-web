@@ -17,6 +17,10 @@ function Customers(props) {
     const getData = useCallback(async () => { await setData(props.customers) }, [props.customers])
 
     useEffect(() => {
+        /*
+            This is an effect, which is similar to componentDidMount()
+            Here we are calling an action called getAllCostumers, where we get all costumers and we store them on Redux
+        */
         props.getAllCustomers();
         getData();
     }, []);

@@ -1,3 +1,6 @@
+/*
+    This is a service where we calculate and compare arrays which comes from Order screen, and then we return an array with other data.
+*/
 const orderService = {
     expandOrders: (orders, customers, shops, assistants, products, services) => {
         let array = [];

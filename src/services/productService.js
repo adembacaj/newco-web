@@ -1,3 +1,6 @@
+/*
+    This is a service where we calculate and compare arrays which comes from Product screen, and then we return an array with other data.
+*/
 function expandProducts(products, services) {
     let newProducts = products;
     products.forEach((product, i) => {

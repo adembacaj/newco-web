@@ -27,6 +27,9 @@ function ProductsForm(props) {
     }, [])
 
     useEffect(() => {
+        /*
+            This is an effect similar to componentDidMount()
+        */
         const id = props.match.params.productId;
         if (id) {
             setTitle('Edit Product');
@@ -41,6 +44,9 @@ function ProductsForm(props) {
         }
     }, [])
     useEffect(() => {
+        /*
+            This is an effect similar to componentDidUpdate(), in our case, it is called for every change on props.products and props.services
+        */
         let options = [];
         props.services.forEach(service => options.push({ label: service.description, value: service.id }))
         setServiceOptions([{ label: 'Services', options }])

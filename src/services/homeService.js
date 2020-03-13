@@ -1,3 +1,8 @@
+/*
+    This is a service where we calculate and compare arrays which comes from screens, and then we return an array.
+    For example at productSales, we have an array with PRODUCT_ID and with SALES_COUNT, we need to get the description of every
+    PRODUCT_ID, and to return an array with PRODUCT_ID and SALES_COUNT.
+*/
 const homeService = {
     productSale: (sales, products) => {
         let array = []

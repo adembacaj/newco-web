@@ -18,7 +18,12 @@ function Products(props) {
         props.getAllProducts();
         props.getProductsOutOfStocks();
     }, [])
-    useEffect(() => { getProducts() }, [props.products, props.services])
+    useEffect(() => {
+        /*
+            This is an effect similar to componentDidUpdate(), in our case, it is called for every change on props.products and props.services
+        */
+        getProducts()
+    }, [props.products, props.services])
 
     const addProduct = useCallback(() => { props.history.push('products-form') }, []);
 
