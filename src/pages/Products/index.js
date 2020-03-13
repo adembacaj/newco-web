@@ -11,7 +11,7 @@ function Products(props) {
     const [data, setData] = useState([])
     const { productIcon } = images;
 
-    useEffect(() => { props.getAllProducts() }, [])
+    useEffect(() => { props.getAllProducts() }, [props.products])
     useEffect(() => { getProducts() }, [props.products, props.services])
 
     const addProduct = useCallback(() => { props.history.push('products-form') }, []);

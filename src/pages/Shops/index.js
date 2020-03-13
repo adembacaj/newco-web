@@ -12,9 +12,11 @@ function Shops(props) {
     const [data, setData] = useState([]);
 
     const addShop = useCallback(() => { props.history.push('shops-form') }, []);
-
-    useEffect(() => { props.getAllShops() }, [])
-    useEffect(() => { getShops() }, [props.shops, props.assistants])
+    
+    useEffect(() => { 
+        props.getAllShops();
+        getShops();
+     }, [props.shops, props.assistants])
 
     async function getShops() {
         const expandedShops = await expandShops(props.shops, props.assistants);

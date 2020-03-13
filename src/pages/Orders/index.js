@@ -19,10 +19,10 @@ function Orders(props) {
     const addOrder = useCallback(() => { props.history.push('orders-form') }, [])
 
     useEffect(() => {
+        props.getAllOrders();
         const expandedOrders = expandOrders(orders, customers, shops, assistants, products, services)
         setData(expandedOrders)
     }, [orders, customers, shops, assistants, products, services])
-    useEffect(() => { props.getAllOrders() }, [])
     return (
         <div className="orders-wrapper">
             {data.map(item => {

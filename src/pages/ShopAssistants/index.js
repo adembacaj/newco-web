@@ -12,8 +12,10 @@ function ShopAssistants(props) {
 
     const addShopAssistant = useCallback(() => { props.history.push('assistants-form') }, [])
 
-    useEffect(() => { getData() }, [props.assistants]);
-    useEffect(() => { props.getAllAssistants() }, [])
+    useEffect(() => {
+        props.getAllAssistants();
+        getData()
+    }, [props.assistants]);
 
     async function getData() {
         await setData(props.assistants)

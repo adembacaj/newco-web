@@ -11,8 +11,10 @@ function Services(props) {
     const { serviceIcon } = images;
     const addService = useCallback(() => { props.history.push('services-form') }, [])
 
-    useEffect(() => { getData() }, [props.services]);
-    useEffect(() => { props.getAllServices() }, [])
+    useEffect(() => { 
+        getData()
+        props.getAllServices()
+     }, [props.services]);
 
     async function getData() {
         await setData(props.services)

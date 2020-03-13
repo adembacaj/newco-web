@@ -11,10 +11,12 @@ function Customers(props) {
     const [data, setData] = useState([])
     const addCustomer = useCallback(() => { props.history.push('customers-form') }, []);
 
-    useEffect(() => { getData() }, [props.customers]);
-    useEffect(() => { props.getAllCustomers() }, [])
+    useEffect(() => {
+        props.getAllCustomers();
+        getData();
+    }, [props.customers]);
 
-    async function getData(){
+    async function getData() {
         await setData(props.customers)
     }
 
