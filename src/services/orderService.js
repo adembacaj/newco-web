@@ -11,7 +11,7 @@ const orderService = {
             services.map(item => { if (order.service === item.id) { array.service = item } });
             ordersArray.push(array)
         })
-        return Promise.resolve(ordersArray);
+        return ordersArray;
     }
 }
 
