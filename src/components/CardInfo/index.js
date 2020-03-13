@@ -4,6 +4,7 @@ import './cardInfo.scss';
 function CardInfo(props) {
     const editItem = useCallback(() => { props.history.push(`${props.editPath}/${props.id}`, {item: props.item}) }, []);
     const deleteItem = useCallback(() => {props.deleteItem(props.id)});
+    
     return (
         <div className="card-info">
             <div className="card-info__left">

@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { 
-    GET_ASSISTANTS, 
-    GET_ASSISTANT, 
-    CREATE_ASSISTANT, 
-    UPDATE_ASSISTANT, 
-    DELETE_ASSISTANT, 
+import {
+    GET_ASSISTANTS,
+    GET_ASSISTANT,
+    CREATE_ASSISTANT,
+    UPDATE_ASSISTANT,
+    DELETE_ASSISTANT,
     ASSISTANT_SALES,
     BEST_ASSISTANT_SALE,
     WORST_ASSISTANT_SALE
- } from '../actionTypes';
+} from '../actionTypes';
 
 export const getAllAssistants = () => async (dispatch) => {
     try {
@@ -81,7 +81,7 @@ export const getBestAssistantSales = () => async (dispatch) => {
         const { data } = await axios.get('/assistants/bestsale');
         if (data.success && data.data) {
             dispatch({ type: BEST_ASSISTANT_SALE, data: data.data })
-        }else{
+        } else {
             dispatch({ type: BEST_ASSISTANT_SALE, data: [] })
         }
     } catch (e) {
@@ -94,7 +94,7 @@ export const getWorstAssistantSales = () => async (dispatch, getState) => {
         const { data } = await axios.get('/assistants/worstsale');
         if (data.success && data.data) {
             dispatch({ type: WORST_ASSISTANT_SALE, data: data.data })
-        }else{
+        } else {
             dispatch({ type: WORST_ASSISTANT_SALE, data: [] })
         }
     } catch (e) {

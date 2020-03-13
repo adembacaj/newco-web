@@ -5,7 +5,7 @@ import AddCard from '../../components/AddCard';
 import './orders.scss';
 import images from '../../assets/images';
 import { getAllOrders, deleteOrder } from '../../store/actions/orders.actions';
-import expandOrders from '../../services/orderService';
+import orderService from '../../services/orderService';
 
 function Orders(props) {
     const { orders, customers, shops, assistants, products, services } = props;
@@ -20,9 +20,10 @@ function Orders(props) {
 
     useEffect(() => {
         props.getAllOrders();
-        const expandedOrders = expandOrders(orders, customers, shops, assistants, products, services)
+        const expandedOrders = orderService.expandOrders(orders, customers, shops, assistants, products, services)
         setData(expandedOrders)
     }, [orders, customers, shops, assistants, products, services])
+    
     return (
         <div className="orders-wrapper">
             {data.map(item => {

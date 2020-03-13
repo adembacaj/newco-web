@@ -3,6 +3,7 @@ import './navbar.scss';
 
 function Navbar(props) {
     const onClick = useCallback((e) => {props.history.push(`${e.target.name}`)}, [])
+    
     return (
         <div className="navbar">
             <div className="navbar__left">

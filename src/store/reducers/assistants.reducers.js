@@ -1,8 +1,8 @@
-import { GET_ASSISTANTS, GET_ASSISTANT, CREATE_ASSISTANT, UPDATE_ASSISTANT, DELETE_ASSISTANT } from '../actionTypes';
+import { GET_ASSISTANTS, GET_ASSISTANT } from '../actionTypes';
 
-export default function(state=[], action){
-    const {type, payload} = action;
-    switch(type){
+export default function (state = [], action) {
+    const { type, payload } = action;
+    switch (type) {
         case GET_ASSISTANTS:
             return payload;
         case GET_ASSISTANT:

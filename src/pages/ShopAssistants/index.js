@@ -11,19 +11,18 @@ function ShopAssistants(props) {
     const { assistantIcon } = images;
 
     const addShopAssistant = useCallback(() => { props.history.push('assistants-form') }, [])
+    const getData = useCallback(async() => {await setData(props.assistants)}, [])
 
     useEffect(() => {
         props.getAllAssistants();
         getData()
     }, [props.assistants]);
 
-    async function getData() {
-        await setData(props.assistants)
-    }
     async function deleteAssistant(id) {
         await props.deleteAssistant(id);
         await props.getAllAssistants()
     }
+    
     return (
         <div className="assistants-wrapper">
             {data.map(item => {

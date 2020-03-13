@@ -36,7 +36,7 @@ function CustomersForm(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (name !== '' && surname !== '' && address !== '' && phone_number !== 0) {
+        if (name !== '' && surname !== '' && address !== '' && phone_number) {
             const body = { name, surname, address, phone_number }
             if (customerId) {
                 props.updateCustomer(body, customerId);

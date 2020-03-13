@@ -56,24 +56,24 @@ export const deleteProduct = (id) => async (dispatch) => {
     }
 }
 
-export const getProductSales = () => async(dispatch) => {
-    try{
-        const {data} = await axios.get('/products/sales');
-        if(data.success){
+export const getProductSales = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get('/products/sales');
+        if (data.success) {
             dispatch({ type: PRODUCT_SALES, data: data.data })
         }
-    }catch(e){
+    } catch (e) {
         Promise.reject(e)
     }
 }
 
 export const getProductsOutOfStocks = () => async (dispatch) => {
-    try{
-        const {data} = await axios.get('/products/stocks')
-        if(data.success){
-            dispatch({type: PRODUCT_OUT_OF_STOCKS, data: data.data})
+    try {
+        const { data } = await axios.get('/products/stocks')
+        if (data.success) {
+            dispatch({ type: PRODUCT_OUT_OF_STOCKS, data: data.data })
         }
-    }catch(e){
+    } catch (e) {
         Promise.reject(e)
     }
 }

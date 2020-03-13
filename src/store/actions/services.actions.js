@@ -56,13 +56,13 @@ export const deleteService = (id) => async (dispatch) => {
     }
 }
 
-export const getTopSoldServices = () => async(dispatch) => {
-    try{
-        const {data} = await axios.get('/services/topsold');
-        if(data.success){
+export const getTopSoldServices = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get('/services/topsold');
+        if (data.success) {
             dispatch({ type: SERVICE_SALES, data: data.data })
         }
-    }catch(e){
+    } catch (e) {
         Promise.reject(e)
     }
 }

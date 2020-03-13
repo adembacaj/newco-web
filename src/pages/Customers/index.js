@@ -9,16 +9,14 @@ import { deleteCustomer, getAllCustomers } from '../../store/actions/customers.a
 function Customers(props) {
     const { customerIcon } = images;
     const [data, setData] = useState([])
+    
     const addCustomer = useCallback(() => { props.history.push('customers-form') }, []);
+    const getData = useCallback(async() => {await setData(props.customers)}, [props.customers])
 
     useEffect(() => {
         props.getAllCustomers();
         getData();
     }, [props.customers]);
-
-    async function getData() {
-        await setData(props.customers)
-    }
 
     async function deleteCustomer(id) {
         await props.deleteCustomer(id);

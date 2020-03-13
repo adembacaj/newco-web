@@ -1,10 +1,10 @@
 import React from 'react';
 import './addCard.scss';
 
-function AddCard(props){
+function AddCard({ onClick, text }) {
     return (
-        <div onClick={props.onClick} className="add-card">
-            <div className="add-card__text">{props.text}</div>
+        <div onClick={onClick} className="add-card">
+            <div className="add-card__text">{text}</div>
         </div>
     )
 }

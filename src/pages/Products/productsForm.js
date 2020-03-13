@@ -29,7 +29,7 @@ function ProductsForm(props) {
     useEffect(() => {
         const id = props.match.params.productId;
         if (id) {
-            setTitle('EditProduct');
+            setTitle('Edit Product');
             setProductId(id)
             setDescription(props.history.location.state.item.description);
             setValidity(props.history.location.state.item.validity);

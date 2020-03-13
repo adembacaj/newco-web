@@ -12,7 +12,7 @@ function ShopsForm(props) {
     const [assistantValue, setAssistantValue] = useState([]);
     const [assistantOptions, setAssistantOptions] = useState([]);
 
-    const handleAssistantSelect = useCallback(async(assistant) => { await setAssistantValue(assistant) }, [setAssistantValue]);
+    const handleAssistantSelect = useCallback(async (assistant) => { await setAssistantValue(assistant) }, [setAssistantValue]);
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
         switch (name) {
